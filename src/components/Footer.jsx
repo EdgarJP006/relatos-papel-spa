@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="footer">
-      <p>© 2026 Relatos de Papel. Proyecto académico de Desarrollo Web Full Stack.</p>
+      <p>© 2026 Relatos de Papel.</p>
     </footer>
   )
 }

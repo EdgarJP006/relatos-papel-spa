@@ -108,6 +108,80 @@ input:focus {
   margin: 0 auto;
 }
 
+.landing-actions {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.landing-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.75rem 1.1rem;
+  border-radius: 8px;
+}
+
+.landing-actions a:first-child {
+  background-color: var(--primary);
+  color: white;
+}
+
+.landing-actions a:first-child:hover {
+  background-color: var(--primary-strong);
+  color: white;
+  text-decoration: none;
+}
+
+.landing-actions a:last-child {
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+}
+
+.landing-actions a:last-child:hover {
+  background-color: var(--surface-soft);
+  text-decoration: none;
+}
+
+.landing-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.landing-section-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem;
+  box-shadow: 0 8px 20px rgba(8, 35, 63, 0.06);
+}
+
+.landing-section-card span {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.landing-section-card h3 {
+  margin: 0 0 0.45rem;
+  color: var(--primary-deep);
+  font-size: 1.05rem;
+}
+
+.landing-section-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
 .footer {
   background-color: var(--primary-deep);
   color: white;
