@@ -19,18 +19,18 @@ function AppRouter() {
 
         <Route path="/login" element={<Login />} />
 
-        <Route path="/home" element={<Home />} />
+      <Route path="/home" element={<Home />} />
 
-        <Route path="/book/:id" element={<BookDetail />} />
+    <Route path="/book/:id" element={<BookDetail />} />
 
-        <Route
-          path="/checkout"
-          element={
-            <ProtectedRoute>
-              <Checkout />
-            </ProtectedRoute>
-          }
-        />
+    <Route
+      path="/checkout"
+      element={
+        <ProtectedRoute>
+          <Checkout />
+        </ProtectedRoute>
+      }
+    />
 
         <Route
           path="/profile"
