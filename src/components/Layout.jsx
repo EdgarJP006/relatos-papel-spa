@@ -1,5 +1,6 @@
 import Header from './Header'
 import Footer from './Footer'
+import Breadcrumbs from './Breadcrumbs'
 
 function Layout({ children }) {
   return (
@@ -7,6 +8,7 @@ function Layout({ children }) {
       <Header />
 
       <main className="main-content">
+        <Breadcrumbs />
         {children}
       </main>
 

@@ -71,12 +71,15 @@ input:focus {
 .header {
   background: linear-gradient(135deg, var(--primary-deep) 0%, #0c4da2 100%);
   color: white;
-  padding: 1rem 2rem;
+  padding: 1.15rem 2rem 1.25rem;
+  box-shadow: 0 10px 24px rgba(8, 35, 63, 0.18);
+}
+
+.header-top {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
-  box-shadow: 0 10px 24px rgba(8, 35, 63, 0.18);
 }
 
 .logo {
@@ -105,6 +108,41 @@ input:focus {
 .nav span {
   color: var(--accent-soft);
   font-weight: bold;
+}
+
+.breadcrumb-nav {
+  margin: 0 0 1.25rem;
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '/';
+  margin-right: 0.55rem;
+  color: #8ea0b3;
+}
+
+.breadcrumb-item a {
+  color: var(--primary);
+  font-weight: normal;
+}
+
+.breadcrumb-item.is-current span {
+  color: var(--text);
 }
 
 .main-content {
@@ -293,7 +331,7 @@ section {
 }
 
 @media (max-width: 850px) {
-  .header {
+  .header-top {
     flex-direction: column;
     align-items: flex-start;
   }

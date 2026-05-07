@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 
@@ -8,22 +9,24 @@ function Header() {
 
   return (
     <header className="header">
-      <Link to="/" className="logo">Relatos de Papel</Link>
+      <div className="header-top">
+        <Link to="/" className="logo">Relatos de Papel</Link>
 
-      <nav className="nav">
-        <Link to="/">Inicio</Link>
-        <Link to="/home">Catálogo</Link>
+        <nav className="nav">
+          <Link to="/">Inicio</Link>
+          <Link to="/home">Catalogo</Link>
 
-        {isAuthenticated ? (
-          <>
-            <Link to="/profile">Perfil</Link>
-            <Link to="/checkout">Checkout ({cartItems.length})</Link>
-            <span>Hola, {user.name}</span>
-          </>
-        ) : (
-          <Link to="/login">Login</Link>
-        )}
-      </nav>
+          {isAuthenticated ? (
+            <>
+              <Link to="/profile">Perfil</Link>
+              <Link to="/checkout">Checkout ({cartItems.length})</Link>
+              <span>Hola, {user.name}</span>
+            </>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
+        </nav>
+      </div>
     </header>
   )
 }
