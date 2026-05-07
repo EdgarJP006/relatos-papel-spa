@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 function BookCard({ book }) {
   return (
     <article className="book-card">
-      <img src={book.image} alt={book.title} />
+      <Link to={`/book/${book.id}`} className="book-card-image-link">
+        <img src={book.image} alt={book.title} />
+      </Link>
 
       <h3>{book.title}</h3>
 
