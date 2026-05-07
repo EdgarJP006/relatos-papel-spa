@@ -114,90 +114,81 @@ input:focus {
   margin: 0 auto;
 }
 
-.landing-intro h1 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-}
-
-.landing-intro p {
-  margin: 0 0 0.85rem;
-  line-height: 1.5;
-  color: var(--text);
-}
-
-.landing-intro p:last-of-type {
-  margin-bottom: 0;
-}
-
-.landing-actions {
+.landing-hero {
+  min-height: 78vh;
   display: flex;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-}
-
-.landing-actions a {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0.75rem 1.1rem;
-  border-radius: 8px;
+  padding: 2rem;
 }
 
-.landing-actions a:first-child {
-  background-color: var(--primary);
-  color: white;
+.landing-hero-box {
+  width: 100%;
+  max-width: 760px;
+  text-align: center;
 }
 
-.landing-actions a:first-child:hover {
-  background-color: var(--primary-strong);
-  color: white;
-  text-decoration: none;
+.landing-hero-label {
+  margin: 0 0 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
 }
 
-.landing-actions a:last-child {
+.landing-hero-box h1 {
+  margin: 0 0 1rem;
+  color: var(--primary-deep);
+  font-size: 3rem;
+  line-height: 1.1;
+}
+
+.landing-hero-box p {
+  margin: 0 auto;
+  max-width: 620px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.landing-catalog-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.4rem;
   border: 1px solid var(--border);
+  border-radius: 6px;
   background-color: var(--surface);
+  color: var(--primary-deep);
 }
 
-.landing-actions a:last-child:hover {
-  background-color: var(--surface-soft);
+.landing-catalog-link:hover {
   text-decoration: none;
+  border-color: #b8cce7;
 }
 
-.landing-sections {
+.landing-offers h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.landing-offers-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
-.landing-section-card {
-  background-color: var(--surface);
+.landing-offer-card {
+  min-height: 150px;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.1rem;
-  box-shadow: 0 8px 20px rgba(8, 35, 63, 0.06);
+  border-radius: 6px;
+  padding: 1rem;
+  background-color: #fafcff;
 }
 
-.landing-section-card span {
-  display: inline-block;
-  margin-bottom: 0.5rem;
-  color: var(--primary);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.landing-section-card h3 {
-  margin: 0 0 0.45rem;
+.landing-offer-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
   color: var(--primary-deep);
-  font-size: 1.05rem;
 }
 
-.landing-section-card p {
+.landing-offer-card p {
   margin: 0;
   color: var(--text-muted);
   line-height: 1.5;
@@ -309,5 +300,14 @@ section {
 
   .cart {
     position: static;
+  }
+
+  .landing-hero {
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .landing-hero-box h1 {
+    font-size: 2.2rem;
   }
 }

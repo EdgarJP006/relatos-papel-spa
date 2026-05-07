@@ -3,59 +3,37 @@ import { Link } from 'react-router-dom'
 function Landing() {
   return (
     <main className="landing">
-      <section className="landing-intro">
-        <h1>Relatos de Papel</h1>
+      <section className="landing-hero">
+        <div className="landing-hero-box">
+          <p className="landing-hero-label">Inicio</p>
+          <h1>Bienvenido a Relatos de Papel</h1>
+          <p>
+            Un espacio para consultar libros, revisar informacion de cada titulo y acceder al catalogo de la editorial.
+          </p>
 
-        <p>
-          Bienvenido a Relatos de Papel
-        </p>
-
-        <p>
-          Desde aqui puedes explorar titulos, revisar la informacion de cada libro y acceder a tu cuenta para continuar con tu experiencia dentro del sitio.
-        </p>
-
-        <div className="landing-actions">
-          <Link to="/home">Explorar catalogo</Link>
-          <Link to="/login">Iniciar sesion</Link>
+          <Link to="/home" className="landing-catalog-link">
+            Ir al catalogo
+          </Link>
         </div>
       </section>
 
-      <section>
-        <h2>Enlaces</h2>
+      <section className="landing-offers">
+        <h2>Ofertas</h2>
 
-        <p>
-          La plataforma se organiza en modulos claros para cubrir consulta, compra y gestion del usuario.
-        </p>
-
-        <div className="landing-sections">
-          <article className="landing-section-card">
-            <span>Catalogo</span>
-            <h3>Exploracion de libros</h3>
-            <p>Vista principal para consultar el catalogo editorial disponible.</p>
+        <div className="landing-offers-grid">
+          <article className="landing-offer-card">
+            <h3>Oferta 1</h3>
+            <p>Espacio disponible para promocion de libros destacados.</p>
           </article>
 
-          <article className="landing-section-card">
-            <span>Busqueda</span>
-            <h3>Filtro por titulo</h3>
-            <p>Permite localizar libros de forma rapida a partir del nombre.</p>
+          <article className="landing-offer-card">
+            <h3>Oferta 2</h3>
+            <p>Espacio disponible para descuentos o novedades editoriales.</p>
           </article>
 
-          <article className="landing-section-card">
-            <span>Detalle</span>
-            <h3>Ficha individual</h3>
-            <p>Muestra la informacion completa de cada libro antes de agregarlo.</p>
-          </article>
-
-          <article className="landing-section-card">
-            <span>Compra</span>
-            <h3>Carrito persistente</h3>
-            <p>Conserva la seleccion del usuario durante la navegacion en el sitio.</p>
-          </article>
-
-          <article className="landing-section-card">
-            <span>Usuario</span>
-            <h3>Perfil y pedidos</h3>
-            <p>Area personal para revisar datos de cuenta e historial reciente.</p>
+          <article className="landing-offer-card">
+            <h3>Oferta 3</h3>
+            <p>Espacio disponible para anuncios breves dentro del inicio.</p>
           </article>
         </div>
       </section>
