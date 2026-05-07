@@ -6,4 +6,11 @@ export const users = [
     password: '123456',
     role: 'Cliente',
   },
+  {
+    id: 1,
+    name: 'Adriana',
+    email: 'adriana@yopmail.com',
+    password: '123456',
+    role: 'Cliente',
+  },
 ]
