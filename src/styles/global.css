@@ -80,9 +80,15 @@ input:focus {
 }
 
 .logo {
+  color: white;
   font-size: 1.3rem;
   font-weight: bold;
   letter-spacing: 0.04em;
+}
+
+.logo:hover {
+  color: white;
+  text-decoration: none;
 }
 
 .nav {
@@ -106,6 +112,21 @@ input:focus {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.landing-intro h1 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.landing-intro p {
+  margin: 0 0 0.85rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.landing-intro p:last-of-type {
+  margin-bottom: 0;
 }
 
 .landing-actions {

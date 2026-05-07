@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom'
 function Landing() {
   return (
     <main className="landing">
-      <section>
+      <section className="landing-intro">
         <h1>Relatos de Papel</h1>
 
         <p>
-          Plataforma web para la consulta, exploracion y compra de libros de una editorial digital.
+          Bienvenido a Relatos de Papel
+        </p>
+
+        <p>
+          Desde aqui puedes explorar titulos, revisar la informacion de cada libro y acceder a tu cuenta para continuar con tu experiencia dentro del sitio.
         </p>
 
         <div className="landing-actions">
@@ -17,7 +21,7 @@ function Landing() {
       </section>
 
       <section>
-        <h2>Partes del sitio</h2>
+        <h2>Enlaces</h2>
 
         <p>
           La plataforma se organiza en modulos claros para cubrir consulta, compra y gestion del usuario.
