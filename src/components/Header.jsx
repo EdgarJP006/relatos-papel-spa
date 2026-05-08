@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { FaBookOpen } from "react-icons/fa";
-import { FaUserCircle } from 'react-icons/fa'
+import { FaUserCircle } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 
 function Header() {
   const { isAuthenticated, user } = useAuth();
@@ -11,7 +12,6 @@ function Header() {
   return (
     <header className="header">
       <div className="header-top">
-        {/* <Link to="/" className="logo"><FaBookOpen /> Relatos de Papel</Link> */}
         <h2 className="logo">
           <FaBookOpen /> Relatos de Papel{" "}
         </h2>
@@ -22,13 +22,19 @@ function Header() {
           {isAuthenticated ? (
             <>
               <Link to="/profile">Perfil</Link>
-              <Link to="/checkout">Checkout ({cartItems.length})</Link>
+              <Link to="/checkout" className="cart-icon-container">
+                <FaShoppingCart />
+
+                {cartItems.length > 0 && (
+                  <span className="cart-badge">{cartItems.length}</span>
+                )}
+              </Link>
               <span>Hola, {user.name}</span>
             </>
           ) : (
             <Link to="/login" className="menu-login-button">
               <FaUserCircle />
-              <span>Login</span>
+              {/* <span>Login</span> */}
             </Link>
           )}
         </nav>

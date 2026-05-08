@@ -1,33 +1,31 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-
-import { useAuth } from '../context/AuthContext'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { login } = useAuth()
+  const { login } = useAuth();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    const success = login(email, password)
+    const success = login(email, password);
 
     if (!success) {
-      setError('Credenciales incorrectas')
-      return
+      setError("Credenciales incorrectas");
+      return;
     }
 
-    navigate('/profile')
+    navigate("/profile");
   }
 
   return (
     <main className="login-page">
-
       <section className="login-image-section">
         <div className="login-overlay">
           <h1>Relatos de Papel</h1>
@@ -38,18 +36,11 @@ function Login() {
       </section>
 
       <section className="login-form-section">
-        <form
-          className="login-form"
-          onSubmit={handleSubmit}
-        >
+        <form className="login-form" onSubmit={handleSubmit}>
           <h2>Iniciar sesión</h2>
-          <p className="login-subtitle">
-            Accede con tu cuenta para continuar
-          </p>
+          <p className="login-subtitle">Accede con tu cuenta para continuar</p>
           <div className="input-group">
-            <label htmlFor="email">
-              Correo electrónico
-            </label>
+            <label htmlFor="email">Correo electrónico</label>
 
             <input
               id="email"
@@ -61,9 +52,7 @@ function Login() {
           </div>
 
           <div className="input-group">
-            <label htmlFor="password">
-              Contraseña
-            </label>
+            <label htmlFor="password">Contraseña</label>
 
             <input
               id="password"
@@ -74,18 +63,12 @@ function Login() {
             />
           </div>
 
-          {error && (
-            <p className="login-error">
-              {error}
-            </p>
-          )}
-          <button type="submit">
-            Ingresar
-          </button>
+          {error && <p className="login-error">{error}</p>}
+          <button type="submit">Ingresar</button>
         </form>
       </section>
     </main>
-  )
+  );
 }
 
-export default Login
+export default Login;
