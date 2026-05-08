@@ -44,7 +44,7 @@ const [cartItems, setCartItems] = useLocalStorage('cart', [])
     </CartContext.Provider>
   )
 }
-
+// Custom hook para usar el contexto del carrito
 export function useCart() {
   return useContext(CartContext)
 }

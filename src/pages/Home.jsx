@@ -51,6 +51,7 @@ function Home() {
         <section className="books-grid">
           {currentBooks.map(
             (book) => (
+              // uso dinamico de BookCard
               <BookCard
                 key={book.id}
                 book={book}

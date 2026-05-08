@@ -25,7 +25,7 @@ function BookCard({ book }) {
           Ver detalle
         </Link>
 
-        <button
+        {/* <button
           type="button"
           className="book-card-cart-button"
           onClick={() => addToCart(book)}
@@ -44,7 +44,7 @@ function BookCard({ book }) {
             <circle cx="10" cy="18" r="1.6" fill="currentColor" />
             <circle cx="17" cy="18" r="1.6" fill="currentColor" />
           </svg>
-        </button>
+        </button> */}
 
        
       </div>
