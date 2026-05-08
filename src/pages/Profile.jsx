@@ -17,31 +17,56 @@ function Profile() {
   }
 
   return (
-    <main>
-      <h1>Perfil de usuario</h1>
+    <main className="profile-page">
+      <div className="profile-container">
 
-      <section>
-        <h2>Datos personales</h2>
-        <p><strong>Nombre:</strong> {user.name}</p>
-        <p><strong>Correo:</strong> {user.email}</p>
-        <p><strong>Rol:</strong> {user.role}</p>
+        <section className="profile-card">
+          <img
+            src="https://i.pravatar.cc/150?img=12"
+            alt="avatar"
+            className="profile-avatar"
+          />
 
-        <button onClick={handleLogout}>
-          Cerrar sesión
-        </button>
-      </section>
+          <h1>{user.name}</h1>
+          <p className="profile-role">{user.role}</p>
+          <div className="profile-info">
+            <p>
+              <strong>Correo:</strong> {user.email}
+            </p>
+            <p>
+              <strong>Rol:</strong> {user.role}
+            </p>
+          </div>
+          <button
+            className="logout-button"
+            onClick={handleLogout}
+          >
+            Cerrar sesión
+          </button>
+        </section>
 
-      <section>
-        <h2>Últimos cinco pedidos</h2>
-
-        <ul>
-          {orders.slice(0, 5).map((order) => (
-            <li key={order.id}>
-              <strong>{order.id}</strong> — {order.date} — ${order.total} — {order.status}
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="orders-card">
+          <h2>Últimos pedidos</h2>
+          <div className="orders-list">
+            {orders.slice(0, 5).map((order) => (
+              <div key={order.id} className="order-item">
+                <div>
+                  <h3>{order.id}</h3>
+                  <p>{order.date}</p>
+                </div>
+                <div>
+                  <p className="order-total">
+                    ${order.total}
+                  </p>
+                  <span className="order-status">
+                    {order.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </main>
   )
 }
