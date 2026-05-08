@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom'
-
 import { books } from '../data/books'
 
 function getBreadcrumbItems(pathname) {
@@ -20,13 +19,11 @@ function getBreadcrumbItems(pathname) {
     items.push({ label: 'Checkout' })
   } else if (pathParts[0] === 'book') {
     const currentBook = books.find((book) => book.id === Number(pathParts[1]))
-
     items.push({ label: 'Catalogo', to: '/home' })
     items.push({ label: currentBook ? currentBook.title : 'Detalle del libro' })
   } else {
     items.push({ label: 'Pagina no encontrada' })
   }
-
   return items
 }
 
