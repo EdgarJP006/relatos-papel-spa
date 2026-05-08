@@ -26,46 +26,64 @@ function Login() {
   }
 
   return (
-    <main>
-      <h1>Inicio de sesión</h1>
+    <main className="login-page">
 
-      <p>Accede con tu cuenta de usuario.</p>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Correo electrónico</label>
-
-          <input
-            id="email"
-            type="email"
-            placeholder="usuario@correo.com"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
+      <section className="login-image-section">
+        <div className="login-overlay">
+          <h1>Relatos de Papel</h1>
+          <p>
+            Explora historias únicas y descubre tu próxima aventura literaria.
+          </p>
         </div>
+      </section>
 
-        <br />
+      <section className="login-form-section">
+        <form
+          className="login-form"
+          onSubmit={handleSubmit}
+        >
+          <h2>Iniciar sesión</h2>
+          <p className="login-subtitle">
+            Accede con tu cuenta para continuar
+          </p>
+          <div className="input-group">
+            <label htmlFor="email">
+              Correo electrónico
+            </label>
 
-        <div>
-          <label htmlFor="password">Contraseña</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="usuario@correo.com"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </div>
 
-          <input
-            id="password"
-            type="password"
-            placeholder="********"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
+          <div className="input-group">
+            <label htmlFor="password">
+              Contraseña
+            </label>
 
-        <br />
+            <input
+              id="password"
+              type="password"
+              placeholder="********"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
 
-        <button type="submit">
-          Iniciar sesión
-        </button>
-
-        {error && <p>{error}</p>}
-      </form>
+          {error && (
+            <p className="login-error">
+              {error}
+            </p>
+          )}
+          <button type="submit">
+            Ingresar
+          </button>
+        </form>
+      </section>
     </main>
   )
 }

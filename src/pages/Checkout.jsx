@@ -1,153 +1,209 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useCart } from '../context/CartContext'
-import useLocalStorage from '../hooks/useLocalStorage'
-import { orders as defaultOrders } from '../data/orders'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { orders as defaultOrders } from "../data/orders";
 
 function Checkout() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { cartItems, total, clearCart } = useCart()
-
-  const [nombre, setNombre] = useState('')
-  const [direccion, setDireccion] = useState('')
-  const [ciudad, setCiudad] = useState('')
+  const { cartItems, total, clearCart } = useCart();
+  const [nombre, setNombre] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [ciudad, setCiudad] = useState("");
 
   const [storedOrders, setStoredOrders] = useLocalStorage(
-    'orders',
-    defaultOrders
-  )
+    "orders",
+    defaultOrders,
+  );
+
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiration, setExpiration] = useState("");
+  const [cvv, setCvv] = useState("");
 
   function handlePayment(event) {
-    event?.preventDefault()
+    event?.preventDefault();
 
     if (cartItems.length === 0) {
-      window.alert('No hay libros en el carrito para finalizar la compra.')
-      return
+      window.alert("No hay libros en el carrito.");
+      return;
     }
 
-    const trimmedNombre = nombre.trim()
-    const trimmedDireccion = direccion.trim()
-    const trimmedCiudad = ciudad.trim()
+    const trimmedNombre = nombre.trim();
+    const trimmedDireccion = direccion.trim();
+    const trimmedCiudad = ciudad.trim();
 
     if (!trimmedNombre || !trimmedDireccion || !trimmedCiudad) {
-      window.alert(
-        'Por favor completa Nombre, Dirección y Ciudad antes de realizar el pedido.'
-      )
-      return
+      window.alert("Completa todos los campos.");
+      return;
     }
 
-    const currentOrders = Array.isArray(storedOrders)
-      ? storedOrders
-      : []
+    const currentOrders = Array.isArray(storedOrders) ? storedOrders : [];
 
     const maxId = currentOrders.reduce((max, order) => {
-      const num = Number(String(order.id).replace(/\D/g, ''))
-      return Number.isFinite(num) ? Math.max(max, num) : max
-    }, 0)
+      const num = Number(String(order.id).replace(/\D/g, ""));
+      return Number.isFinite(num) ? Math.max(max, num) : max;
+    }, 0);
 
-    const nextId = `PED-${String(maxId + 1).padStart(3, '0')}`
-    const today = new Date().toISOString().slice(0, 10)
+    const nextId = `PED-${String(maxId + 1).padStart(3, "0")}`;
+    const today = new Date().toISOString().slice(0, 10);
 
     const newOrder = {
       id: nextId,
       date: today,
       total,
-      status: 'Procesado',
+      status: "Procesado",
       customer: {
         nombre: trimmedNombre,
         direccion: trimmedDireccion,
         ciudad: trimmedCiudad,
       },
-    }
+    };
 
     setStoredOrders((curr) => {
-      const safe = Array.isArray(curr) ? curr : []
-      return [newOrder, ...safe]
-    })
+      const safe = Array.isArray(curr) ? curr : [];
+      return [newOrder, ...safe];
+    });
 
-    window.alert(
-      `Pedido ${nextId} realizado correctamente.\nCliente: ${trimmedNombre}\nDirección: ${trimmedDireccion}\nCiudad: ${trimmedCiudad}`
-    )
+    window.alert(`Pedido ${nextId} realizado correctamente.`);
 
-    clearCart()
-    navigate('/home')
+    clearCart();
+    navigate("/home");
   }
 
   return (
-    <main>
-      <h1>Checkout</h1>
+    <main className="checkout-page">
+      <div className="checkout-container">
+        {/* FORMULARIO */}
+        <section className="checkout-form-card">
+          <h1>Finalizar compra</h1>
 
-      {cartItems.length === 0 ? (
-        <p>No hay libros en el carrito para finalizar la compra.</p>
-      ) : (
-        <section>
+          {/* AQUI VA EL FORM */}
           <form onSubmit={handlePayment}>
-            <h2>Datos de pedido</h2>
+            {/* INFORMACIÓN ENVÍO */}
+            <h2 className="section-title">Datos de envío</h2>
 
-            <div>
-              <label>
-                Nombre
-                <input
-                  type="text"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  required
-                />
-              </label>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Nombre Completo"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                required
+              />
             </div>
 
-            <div>
-              <label>
-                Dirección
-                <input
-                  type="text"
-                  value={direccion}
-                  onChange={(e) => setDireccion(e.target.value)}
-                  required
-                />
-              </label>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Direccción"
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+                required
+              />
             </div>
 
-            <div>
-              <label>
-                Ciudad
-                <input
-                  type="text"
-                  value={ciudad}
-                  onChange={(e) => setCiudad(e.target.value)}
-                  required
-                />
-              </label>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Ciudad"
+                value={ciudad}
+                onChange={(e) => setCiudad(e.target.value)}
+                required
+              />
             </div>
 
-            <h2>Resumen del pedido</h2>
+            {/* MÉTODO DE PAGO */}
+            <h2 className="section-title">Método de pago</h2>
 
-            <ul>
-              {cartItems.map((item) => (
-                <li key={item.id}>
-                  {item.title} — ${item.price}
-                </li>
-              ))}
-            </ul>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Nombre del titular"
+                value={cardName}
+                onChange={(e) => setCardName(e.target.value)}
+                required
+              />
+            </div>
 
-            <h3>Total: ${total.toFixed(2)}</h3>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="1234 5678 9012 3456"
+                maxLength={19}
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="payment-row">
+              <div className="input-group">
+                <input
+                  type="text"
+                  placeholder="MM/AA"
+                  maxLength={5}
+                  value={expiration}
+                  onChange={(e) => setExpiration(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="input-group">
+                <input
+                  type="password"
+                  placeholder="CVV"
+                  maxLength={4}
+                  value={cvv}
+                  onChange={(e) => setCvv(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
 
             <button
               type="submit"
               disabled={
                 !nombre.trim() ||
                 !direccion.trim() ||
-                !ciudad.trim()
+                !ciudad.trim() ||
+                !cardName.trim() ||
+                !cardNumber.trim() ||
+                !expiration.trim() ||
+                !cvv.trim()
               }
             >
-              Realizar pedido
+              Confirmar compra
             </button>
           </form>
         </section>
-      )}
+
+        {/* RESUMEN */}
+        <aside className="checkout-summary-card">
+          <h2>Resumen del pedido</h2>
+
+          {cartItems.map((item) => (
+            <div key={item.id} className="checkout-item">
+              <div>
+                <h3>{item.title}</h3>
+
+                <p>Cantidad: {item.quantity || 1}</p>
+              </div>
+
+              <strong>${(item.price * (item.quantity || 1)).toFixed(2)}</strong>
+            </div>
+          ))}
+
+          <div className="checkout-total">
+            <span>Total</span>
+
+            <strong>${total.toFixed(2)}</strong>
+          </div>
+        </aside>
+      </div>
     </main>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;
