@@ -13,7 +13,7 @@ export const books = [
   },
   {
     id: 2,
-    title: '1984',
+    title: 'Crepusculo',
     author: 'George Orwell',
     isbn: '9780451524935',
     price: 18.5,

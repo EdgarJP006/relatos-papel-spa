@@ -1,40 +1,61 @@
-import { Link } from 'react-router-dom'
-import { useCart } from '../context/CartContext'
+import { Link } from "react-router-dom";
+
+import { useCart } from "../context/CartContext";
+
+import { FaTrash, FaShoppingCart } from "react-icons/fa";
 
 function Cart() {
-  const { cartItems, removeFromCart, total } = useCart()
+  const { cartItems, removeFromCart, total } = useCart();
 
   return (
     <aside className="cart">
-      <h2>Carrito</h2>
+      <div className="cart-header">
+        <h2>
+          <FaShoppingCart />
+          Carrito
+        </h2>
+        <span>{cartItems.length} productos</span>
+      </div>
 
       {cartItems.length === 0 ? (
-        <p>No hay libros en el carrito.</p>
+        <div className="empty-cart">
+          <p>No hay libros en el carrito.</p>
+        </div>
       ) : (
         <>
-          <ul>
+          <ul className="cart-list">
             {cartItems.map((item) => (
-              <li key={item.id}>
-                <p>{item.title}</p>
+              <li key={item.id} className="cart-item">
+                <div className="cart-info">
+                  <h3>{item.title}</h3>
 
-                <p>${item.price}</p>
+                  <p>${item.price}</p>
+                </div>
 
-                <button onClick={() => removeFromCart(item.id)}>
-                  Eliminar
+                <button
+                  className="delete-btn"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  <FaTrash />
                 </button>
               </li>
             ))}
           </ul>
 
-          <h3>Total: ${total.toFixed(2)}</h3>
+          <div className="cart-footer">
+            <h3>
+              Total:
+              <span>${total.toFixed(2)}</span>
+            </h3>
 
-          <Link to="/checkout">
-            Ir al checkout
-          </Link>
+            <Link to="/checkout" className="checkout-btn">
+              Ir al checkout
+            </Link>
+          </div>
         </>
       )}
     </aside>
-  )
+  );
 }
 
-export default Cart
+export default Cart;
