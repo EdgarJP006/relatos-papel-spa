@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../context/AuthContext'
-import { orders } from '../data/orders'
+import useLocalStorage from '../hooks/useLocalStorage'
+import { orders as defaultOrders } from '../data/orders'
 
 function Profile() {
   const navigate = useNavigate()
 
   const { user, logout } = useAuth()
+
+  const [orders] = useLocalStorage('orders', defaultOrders)
 
   function handleLogout() {
     logout()

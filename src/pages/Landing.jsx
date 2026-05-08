@@ -5,7 +5,6 @@ function Landing() {
     <main className="landing">
       <section className="landing-hero">
         <div className="landing-hero-box">
-          <p className="landing-hero-label">Inicio</p>
           <h1>Bienvenido a Relatos de Papel</h1>
           <p>
             Un espacio para consultar libros, revisar informacion de cada titulo y acceder al catalogo de la editorial.
