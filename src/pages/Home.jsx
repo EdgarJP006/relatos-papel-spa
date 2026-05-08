@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-
+import { useState } from 'react'
 import { books } from '../data/books'
 import BookCard from '../components/BookCard'
 import SearchBar from '../components/SearchBar'
@@ -13,8 +12,6 @@ function Home() {
   const booksPerPage = 6
 
   const filteredBooks = useBookSearch(books,searchTerm)
-
-  useEffect(() => {setCurrentPage(1)}, [searchTerm])
 
   const indexOfLastBook = currentPage * booksPerPage
   const indexOfFirstBook = indexOfLastBook - booksPerPage
@@ -47,9 +44,7 @@ function Home() {
       <h1> Catálogo de libros </h1>
       <SearchBar
         searchTerm={searchTerm}
-        onSearchChange={
-          setSearchTerm
-        }
+        onSearchChange={setSearchTerm}
       />
 
       <div className="content-with-cart">
@@ -62,27 +57,17 @@ function Home() {
               />
             )
           )}
-
           {currentBooks.length === 0 && (
-
             <p className="empty">
               No se encontraron libros.
             </p>
-
           )}
-
         </section>
-
         <Cart />
-
       </div>
 
-      {/* PAGINACIÓN */}
-
       {totalPages > 1 && (
-
         <div className="pagination">
-
           <button
             onClick={prevPage}
             disabled={currentPage === 1}
@@ -93,7 +78,6 @@ function Home() {
           {Array.from(
             { length: totalPages },
             (_, index) => (
-
               <button
                 key={index}
                 className={
@@ -110,7 +94,6 @@ function Home() {
               >
                 {index + 1}
               </button>
-
             )
           )}
 
@@ -122,11 +105,8 @@ function Home() {
           >
             →
           </button>
-
         </div>
-
       )}
-
     </main>
   )
 }
