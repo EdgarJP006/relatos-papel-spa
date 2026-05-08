@@ -10,8 +10,8 @@ function Header() {
   return (
     <header className="header">
       <div className="header-top">
-        <Link to="/" className="logo"> <FaBookOpen /> Relatos de Papel</Link>
-
+        {/* <Link to="/" className="logo"><FaBookOpen /> Relatos de Papel</Link> */}
+        <h2 className="logo"><FaBookOpen /> Relatos de Papel </h2>
         <nav className="nav">
           <Link to="/">Inicio</Link>
           <Link to="/home">Catalogo</Link>

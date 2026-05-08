@@ -14,11 +14,6 @@ function Home() {
   return (
     <main>
       <h1>Catálogo de libros</h1>
-
-      <p>
-        Explora algunos de los libros disponibles en Relatos de Papel.
-      </p>
-
       <SearchBar
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
