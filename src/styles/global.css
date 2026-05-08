@@ -917,3 +917,19 @@ section {
   color: #6b7280;
   font-size: 0.9rem;
 }
+
+.menu-login-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+  color: white;
+
+  transition: 0.3s;
+}
+
+.menu-login-icon:hover {
+  color: #f59e0b;
+  transform: scale(1.1);
+}

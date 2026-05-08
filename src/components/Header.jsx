@@ -1,17 +1,20 @@
-import { Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import { useCart } from '../context/CartContext'
-import { FaBookOpen } from "react-icons/fa"
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
+import { FaBookOpen } from "react-icons/fa";
+import { FaUserCircle } from 'react-icons/fa'
 
 function Header() {
-  const { isAuthenticated, user } = useAuth()
-  const { cartItems } = useCart()
+  const { isAuthenticated, user } = useAuth();
+  const { cartItems } = useCart();
 
   return (
     <header className="header">
       <div className="header-top">
         {/* <Link to="/" className="logo"><FaBookOpen /> Relatos de Papel</Link> */}
-        <h2 className="logo"><FaBookOpen /> Relatos de Papel </h2>
+        <h2 className="logo">
+          <FaBookOpen /> Relatos de Papel{" "}
+        </h2>
         <nav className="nav">
           <Link to="/">Inicio</Link>
           <Link to="/home">Catalogo</Link>
@@ -23,12 +26,15 @@ function Header() {
               <span>Hola, {user.name}</span>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="menu-login-button">
+              <FaUserCircle />
+              <span>Login</span>
+            </Link>
           )}
         </nav>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
