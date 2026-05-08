@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
+import { FaBookOpen } from "react-icons/fa"
 
 function Header() {
   const { isAuthenticated, user } = useAuth()
@@ -10,7 +10,7 @@ function Header() {
   return (
     <header className="header">
       <div className="header-top">
-        <Link to="/" className="logo">Relatos de Papel</Link>
+        <Link to="/" className="logo"> <FaBookOpen /> Relatos de Papel</Link>
 
         <nav className="nav">
           <Link to="/">Inicio</Link>

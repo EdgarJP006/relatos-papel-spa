@@ -9,7 +9,8 @@ export const books = [
     stock: 12,
     description:
       'Una colección de relatos breves sobre memoria, familia y descubrimiento personal.',
-    image: 'https://placehold.co/300x420?text=Libro+1',
+    image:
+      'https://images-na.ssl-images-amazon.com/images/I/81WcnNQ-TBL.jpg',
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ export const books = [
     stock: 8,
     description:
       'Una novela de misterio ambientada en una antigua editorial familiar.',
-    image: 'https://placehold.co/300x420?text=Libro+2',
+    image:
+      'https://images-na.ssl-images-amazon.com/images/I/81af+MCATTL.jpg',
   },
   {
     id: 3,
@@ -33,7 +35,8 @@ export const books = [
     stock: 15,
     description:
       'Un viaje literario por una ciudad donde cada carta revela una historia oculta.',
-    image: 'https://placehold.co/300x420?text=Libro+3',
+    image:
+      'https://images-na.ssl-images-amazon.com/images/I/71aFt4+OTOL.jpg',
   },
   {
     id: 4,
@@ -45,7 +48,8 @@ export const books = [
     stock: 6,
     description:
       'Un ensayo accesible sobre imaginación, cultura y construcción de universos narrativos.',
-    image: 'https://placehold.co/300x420?text=Libro+4',
+    image:
+      'https://images-na.ssl-images-amazon.com/images/I/71KilybDOoL.jpg',
   },
   {
     id: 5,
@@ -57,7 +61,8 @@ export const books = [
     stock: 10,
     description:
       'Una historia emotiva sobre libros, encuentros inesperados y segundas oportunidades.',
-    image: 'https://placehold.co/300x420?text=Libro+5',
+    image:
+      'https://images-na.ssl-images-amazon.com/images/I/81iqZ2HHD-L.jpg',
   },
   {
     id: 6,
@@ -69,6 +74,7 @@ export const books = [
     stock: 9,
     description:
       'Una obra que explora la relación entre tecnología, escritura y transformación social.',
-    image: 'https://placehold.co/300x420?text=Libro+6',
+    image:
+      'https://images-na.ssl-images-amazon.com/images/I/71UwSHSZRnS.jpg',
   },
-]
+];
