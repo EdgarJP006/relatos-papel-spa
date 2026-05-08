@@ -1,10 +1,13 @@
-function SearchBar({ searchTerm, onSearchChange }) {
+import { FaSearch } from "react-icons/fa";
+
+function SearchBar({
+  searchTerm,
+  onSearchChange ,
+}) {
   return (
     <div className="search-bar">
-      <label htmlFor="search">Buscar libro por título</label>
-
+      <FaSearch className="search-icon" />
       <input
-        id="search"
         type="text"
         placeholder="Escribe el título del libro..."
         value={searchTerm}
