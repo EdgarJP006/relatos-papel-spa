@@ -1,15 +1,22 @@
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { useAuth } from '../context/AuthContext'
-import useLocalStorage from '../hooks/useLocalStorage'
-import { orders as defaultOrders } from '../data/orders'
+import { getRecentOrders } from '../services/ordersService'
 
 function Profile() {
   const navigate = useNavigate()
-
   const { user, logout } = useAuth()
 
-  const [orders] = useLocalStorage('orders', defaultOrders)
+  const [orders, setOrders] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    getRecentOrders(user.id)
+      .then((data) => setOrders(data))
+      .catch((err) => setError(err.message || 'Error al cargar los pedidos'))
+      .finally(() => setLoading(false))
+  }, [user.id])
 
   function handleLogout() {
     logout()
@@ -47,17 +54,28 @@ function Profile() {
 
         <section className="orders-card">
           <h2>Últimos pedidos</h2>
+
+          {loading && <p className="orders-loading">Cargando pedidos...</p>}
+
+          {error && (
+            <p className="orders-error" role="alert">
+              {error}
+            </p>
+          )}
+
+          {!loading && !error && orders.length === 0 && (
+            <p className="orders-empty">Aún no tienes pedidos.</p>
+          )}
+
           <div className="orders-list">
             {orders.slice(0, 5).map((order) => (
               <div key={order.id} className="order-item">
                 <div>
-                  <h3>{order.id}</h3>
-                  <p>{order.date}</p>
+                  <h3>#{order.id}</h3>
+                  <p>{order.bookTitle}</p>
+                  <p>{order.createdAt?.slice(0, 10)}</p>
                 </div>
                 <div>
-                  <p className="order-total">
-                    ${order.total}
-                  </p>
                   <span className="order-status">
                     {order.status}
                   </span>

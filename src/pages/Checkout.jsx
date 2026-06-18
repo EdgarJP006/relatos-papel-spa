@@ -1,29 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import useLocalStorage from "../hooks/useLocalStorage";
-import { orders as defaultOrders } from "../data/orders";
+import { useAuth } from "../context/AuthContext";
+import { createOrder } from "../services/ordersService";
 
 function Checkout() {
   const navigate = useNavigate();
-
   const { cartItems, total, clearCart } = useCart();
+  const { user } = useAuth();
+
   const [nombre, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
   const [ciudad, setCiudad] = useState("");
-
-  const [storedOrders, setStoredOrders] = useLocalStorage(
-    "orders",
-    defaultOrders,
-  );
-
   const [cardName, setCardName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiration, setExpiration] = useState("");
   const [cvv, setCvv] = useState("");
 
-  function handlePayment(event) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  async function handlePayment(event) {
     event?.preventDefault();
+    setError(null);
 
     if (cartItems.length === 0) {
       window.alert("No hay libros en el carrito.");
@@ -39,38 +38,37 @@ function Checkout() {
       return;
     }
 
-    const currentOrders = Array.isArray(storedOrders) ? storedOrders : [];
+    setLoading(true);
+    try {
+      await Promise.all(
+        cartItems.map((item) =>
+          createOrder({
+            userId: String(user.id),
+            bookId: item.id,
+            quantity: item.quantity || 1,
+            customerEmail: user.email,
+            customerName: user.name,
+          })
+        )
+      );
 
-    const maxId = currentOrders.reduce((max, order) => {
-      const num = Number(String(order.id).replace(/\D/g, ""));
-      return Number.isFinite(num) ? Math.max(max, num) : max;
-    }, 0);
-
-    const nextId = `PED-${String(maxId + 1).padStart(3, "0")}`;
-    const today = new Date().toISOString().slice(0, 10);
-
-    const newOrder = {
-      id: nextId,
-      date: today,
-      total,
-      status: "Procesado",
-      customer: {
-        nombre: trimmedNombre,
-        direccion: trimmedDireccion,
-        ciudad: trimmedCiudad,
-      },
-    };
-
-    setStoredOrders((curr) => {
-      const safe = Array.isArray(curr) ? curr : [];
-      return [newOrder, ...safe];
-    });
-
-    window.alert(`Pedido ${nextId} realizado correctamente.`);
-
-    clearCart();
-    navigate("/home");
+      clearCart();
+      navigate("/home");
+    } catch (err) {
+      setError(err.message || "Error al procesar el pedido. Inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
+    }
   }
+
+  const formComplete =
+    nombre.trim() &&
+    direccion.trim() &&
+    ciudad.trim() &&
+    cardName.trim() &&
+    cardNumber.trim() &&
+    expiration.trim() &&
+    cvv.trim();
 
   return (
     <main className="checkout-page">
@@ -79,7 +77,12 @@ function Checkout() {
         <section className="checkout-form-card">
           <h1>Finalizar compra</h1>
 
-          {/* AQUI VA EL FORM */}
+          {error && (
+            <p className="checkout-error" role="alert">
+              {error}
+            </p>
+          )}
+
           <form onSubmit={handlePayment}>
             {/* INFORMACIÓN ENVÍO */}
             <h2 className="section-title">Datos de envío</h2>
@@ -162,19 +165,8 @@ function Checkout() {
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={
-                !nombre.trim() ||
-                !direccion.trim() ||
-                !ciudad.trim() ||
-                !cardName.trim() ||
-                !cardNumber.trim() ||
-                !expiration.trim() ||
-                !cvv.trim()
-              }
-            >
-              Confirmar compra
+            <button type="submit" disabled={!formComplete || loading}>
+              {loading ? "Procesando..." : "Confirmar compra"}
             </button>
           </form>
         </section>
@@ -187,17 +179,14 @@ function Checkout() {
             <div key={item.id} className="checkout-item">
               <div>
                 <h3>{item.title}</h3>
-
                 <p>Cantidad: {item.quantity || 1}</p>
               </div>
-
               <strong>${(item.price * (item.quantity || 1)).toFixed(2)}</strong>
             </div>
           ))}
 
           <div className="checkout-total">
             <span>Total</span>
-
             <strong>${total.toFixed(2)}</strong>
           </div>
         </aside>
