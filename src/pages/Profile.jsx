@@ -5,18 +5,18 @@ import { getRecentOrders } from '../services/ordersService'
 
 function Profile() {
   const navigate = useNavigate()
-  const { user, logout } = useAuth()
+  const { user, logout, token } = useAuth()
 
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    getRecentOrders(user.id)
+    getRecentOrders(user?.id || user?.email, token)
       .then((data) => setOrders(data))
       .catch((err) => setError(err.message || 'Error al cargar los pedidos'))
       .finally(() => setLoading(false))
-  }, [user.id])
+  }, [user?.id, user?.email, token])
 
   function handleLogout() {
     logout()

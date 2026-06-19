@@ -44,7 +44,7 @@ function Checkout() {
       const results = await Promise.all(
         cartItems.map((item) =>
           createOrder({
-            userId: user?.Id ? String(user.id) :"1",
+            userId: user?.id || user?.email || "1",
             bookId: item.id,
             quantity: item.quantity || 1,
             userEmail: user.email,
