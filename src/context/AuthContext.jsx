@@ -1,37 +1,32 @@
-import { createContext, useContext } from 'react'
-import useLocalStorage from '../hooks/useLocalStorage'
-import { users } from '../data/users'
+import { createContext, useState, useContext } from 'react'
+import { setAuthHeader} from "../services/api.jsx";
 
-const AuthContext = createContext()
+const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useLocalStorage('user', null)
+  const [token, setToken] = useState( null)
+  const [user, setUser] = useState(null)
 
-  function login(email, password) {
-    const foundUser = users.find(
-      (item) => item.email === email && item.password === password
-    )
 
-    if (!foundUser) {
-      return false
-    }
+  const loginGlobal = (opaqueToken,userData) => {
+    setToken(opaqueToken);
+    setUser(userData);
+    setAuthHeader(opaqueToken);
+  };
 
-    setUser(foundUser)
-    return true
-  }
+  const logoutGlobal = () => {
+    setToken(null);
+    setUser(null);
+    setAuthHeader(null); // Limpia las cabeceras de Axios
+  };
 
-  function logout() {
-    setUser(null)
-  }
+const isAuthenticated = Boolean(token)
 
-  const isAuthenticated = Boolean(user)
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
-      {children}
+  return (<AuthContext.Provider value={{ user, token, loginGlobal, logoutGlobal, isAuthenticated }}>
+    {children})
     </AuthContext.Provider>
-  )
-}
+   )
+  }
 
 export function useAuth() {
   return useContext(AuthContext)

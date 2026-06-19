@@ -1,10 +1,29 @@
 const BASE_URL = "http://localhost:8090/api/v1/orders";
 
-export async function createOrder({ userId, bookId, quantity, userEmail, customerName }) {
+// 🌟 POST: Adaptado para cumplir con el objeto "GatewayRequest" de tu Gateway
+export async function createOrder({ userId, bookId, quantity, userEmail, customerName }, token) {
+
+  // Encapsulamos los datos dentro de la estructura exacta que Jackson espera en el Gateway
+  const gatewayPayload = {
+    targetMethod: "POST",
+    queryParams: {},
+    body: {               // 📦 Aquí adentro viaja tu verdadero DTO de la orden
+      userId,
+      bookId,
+      quantity,
+      userEmail,
+      customerName,
+    }
+  };
+
   const response = await fetch(BASE_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId, bookId, quantity, userEmail, customerName }),
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`, //  Para que el Gateway apruebe la petición y la traduzca
+      "accessToken": token                //  NUEVO: Para que tu Controlador de Java no lance el MissingRequestHeaderException
+    },
+    body: JSON.stringify(gatewayPayload),
   });
 
   if (!response.ok) {
@@ -15,8 +34,14 @@ export async function createOrder({ userId, bookId, quantity, userEmail, custome
   return response.json();
 }
 
-export async function getRecentOrders(userId) {
-  const response = await fetch(`${BASE_URL}/users/${userId}/recent`);
+// 🌟 GET: Se queda igual porque no envía cuerpo (body) al servidor
+export async function getRecentOrders(userId, token) {
+  const response = await fetch(`${BASE_URL}/users/${userId}/recent`, {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  });
 
   if (!response.ok) {
     throw new Error(`Error ${response.status} al obtener los pedidos`);

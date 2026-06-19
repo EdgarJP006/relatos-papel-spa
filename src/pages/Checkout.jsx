@@ -7,7 +7,7 @@ import { createOrder } from "../services/ordersService";
 function Checkout() {
   const navigate = useNavigate();
   const { cartItems, total, clearCart } = useCart();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
 
   const [nombre, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -44,12 +44,12 @@ function Checkout() {
       const results = await Promise.all(
         cartItems.map((item) =>
           createOrder({
-            userId: String(user.id),
+            userId: user?.Id ? String(user.id) :"1",
             bookId: item.id,
             quantity: item.quantity || 1,
             userEmail: user.email,
-            customerName: user.name,
-          })
+            customerName: user?.name || "Usuario sin nombre",
+          }, token)
         )
       );
 
