@@ -1,10 +1,10 @@
 const BASE_URL = "http://localhost:8090/api/v1/orders";
 
-export async function createOrder({ userId, bookId, quantity, customerEmail, customerName }) {
+export async function createOrder({ userId, bookId, quantity, userEmail, customerName }) {
   const response = await fetch(BASE_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId, bookId, quantity, customerEmail, customerName }),
+    body: JSON.stringify({ userId, bookId, quantity, userEmail, customerName }),
   });
 
   if (!response.ok) {

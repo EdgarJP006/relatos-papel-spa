@@ -19,6 +19,7 @@ function Checkout() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [createdOrders, setCreatedOrders] = useState(null);
 
   async function handlePayment(event) {
     event?.preventDefault();
@@ -40,20 +41,20 @@ function Checkout() {
 
     setLoading(true);
     try {
-      await Promise.all(
+      const results = await Promise.all(
         cartItems.map((item) =>
           createOrder({
             userId: String(user.id),
             bookId: item.id,
             quantity: item.quantity || 1,
-            customerEmail: user.email,
+            userEmail: user.email,
             customerName: user.name,
           })
         )
       );
 
       clearCart();
-      navigate("/home");
+      setCreatedOrders(results);
     } catch (err) {
       setError(err.message || "Error al procesar el pedido. Inténtalo de nuevo.");
     } finally {
@@ -69,6 +70,28 @@ function Checkout() {
     cardNumber.trim() &&
     expiration.trim() &&
     cvv.trim();
+
+  if (createdOrders) {
+    return (
+      <main className="checkout-page">
+        <div className="checkout-container">
+          <section className="checkout-form-card checkout-success">
+            <h1>¡Pedido realizado!</h1>
+            <p>Tu compra se ha procesado correctamente.</p>
+            <ul className="success-order-list">
+              {createdOrders.map((order) => (
+                <li key={order.id}>
+                  <strong>Pedido #{order.id}</strong> — {order.bookTitle}{" "}
+                  <span className="order-status">{order.status}</span>
+                </li>
+              ))}
+            </ul>
+            <button onClick={() => navigate("/home")}>Volver al inicio</button>
+          </section>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="checkout-page">
